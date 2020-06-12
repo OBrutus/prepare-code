@@ -1,0 +1,96 @@
+#!/bin/bash
+
+templateFile="/home/$USER/AV/$USER/AV/ter/compCode/template.java"
+codeBarracks="/home/$USER/AV/$USER/AV/ter/compCode"
+uploadJava="/home/$USER/Desktop/I_AM_AV.java"
+uploadCpp="/home/$USER/Desktop/I_AM_AV.cpp"
+uploadPy="/home/$USER/Desktop/I_AM_AV.py"
+editor="codium"
+
+generalClassName="I_AM_AV"
+
+
+# format recommended <number>-<alphabet>
+# ex: for 581-C.java for the problem https://codeforces.com/problemset/problem/581/C
+
+function JC(){
+	# to comile and run java program
+	javac "$name"
+	printf 'Your code compiled successfully\n output : \n'
+	java "$generalClassName"
+}
+
+function run(){
+	java $generalClassName
+}
+
+function banner(){
+	echo -e "\tWelcome to"
+	figlet "  CODE  </>  "
+	echo -e "\n\nThink twice before you code\n\n"
+}
+
+function getUrl(){
+	echo "In getUrl \$1=$1 \$2=$2"
+	name=$2
+	code=${name: 0 : -5 }
+	## hard coded for java
+	# .java means -5
+	case $1 in
+		cc)
+			url="https://www.codechef.com/problems/$code"
+		;;
+		cf)
+			alphabet=${code: -1 }
+			number=${code:0:-2}
+			url="https://codeforces.com/problemset/problem/$number/$alphabet"
+		;;
+		*) url=$1
+	esac
+	firefox $url &
+	return url
+}
+
+pass="<your password here >"
+# pass coz in my case i have my codeBarracks in a seperate partition 
+# so to access that partition I need password
+# also I am too lazy to type it
+sudo -S < <(echo "$pass") mount /dev/sda3 /home/$USER/AV
+# here AV is the mount point
+
+clear
+banner
+
+read -p "Code from : " from
+read -p "Code name [use extenstions as well] [enter to list files] : " name
+
+export JCP="$codeBarracks/$from/$name $uploadJava"
+export CCP="$codeBarracks/$from/$name $uploadCpp"
+export PCP="$codeBarracks/$from/$name $uploadPy"
+export -f JC
+export -f run
+
+while [[ $name == "" ]]
+do
+	ls $codeBarracks/$from
+	read -p "Now give name name [use extenstions as well] : " name
+done
+
+if [[ ! -f $codeBarracks/$from/$name ]]
+then
+	cp $templateFile $codeBarracks/$from/$name
+fi
+
+$editor $codeBarracks/$from/$name
+
+read -p "Do you want to open website [default no] : " website
+
+if [[ $website != "" ]]
+then
+	getUrl $from $name
+fi
+
+echo Dropping a shell
+echo Byee...
+
+gnome-terminal --working-directory=$codeBarracks/$from/
