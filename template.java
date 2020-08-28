@@ -3,13 +3,22 @@ import java.util.*;
 import java.math.*;
 import java.util.stream.*;
 
+/**
+ * Author :     AV
+ * At   :       @Home
+ * Date :       20.8.
+ * ver. :       0.0
+ * link :       
+ * file :       cf/      
+ */
+
 // public class I_AM_AV{
 class I_AM_AV{
     static private I_AM_AV_Template sc=new I_AM_AV_Template();
     static private StringBuilder sb=new StringBuilder();
 
-    public static void code(int[] a, int n){
-        
+    public static int code(int[] a, int n){
+        return 0;
     }
 
     public static void main(String[] args) {
@@ -18,7 +27,8 @@ class I_AM_AV{
         while(T-->0){
             // int n=sc.nextInt();
             // int[] a=sc.input(n);
-            // code(a, n);
+            // int res = code(a, n);
+            // sb.append(res + "\n");
         }
         System.out.print(sb);
     }
