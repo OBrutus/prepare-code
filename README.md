@@ -13,4 +13,4 @@ bash prepare-code
 to run the file
 
 It also contains sample templates currently for C++ and Java only<br>
-Any issues / ideas are always welcomed !
+Any issues / ideas are always welcome !
