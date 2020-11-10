@@ -6,10 +6,10 @@ import java.util.stream.*;
 /**
  * Author :     AV
  * At   :       @Home
- * Date :       20.8.
+ * Date :       20.11.
  * ver. :       0.0
  * link :       
- * file :       cf/      
+ * file :       cf/
  */
 
 // public class I_AM_AV{
@@ -26,6 +26,7 @@ class I_AM_AV{
         T=sc.nextInt();
         while(T-->0){
             // int n=sc.nextInt();
+            // String s = sc.nextInt();
             // int[] a=sc.input(n);
             // int res = code(a, n);
             // sb.append(res + "\n");
@@ -42,12 +43,22 @@ class I_AM_AV_Template{
     I_AM_AV_Template(){
         br=new BufferedReader(new InputStreamReader(System.in));
     }  
-    I_AM_AV_Template(String input)throws FileNotFoundException{
-        System.setOut(new PrintStream(input));
+    I_AM_AV_Template(String input){
+        try {
+            System.setIn(new FileInputStream(input));
+            br=new BufferedReader(new InputStreamReader(System.in));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
-    I_AM_AV_Template(String input, String output)throws FileNotFoundException{
-        System.setIn(new FileInputStream(input));
-        System.setOut(new PrintStream(output));
+    I_AM_AV_Template(String input, String output){
+        try {
+            System.setIn(new FileInputStream(input));
+            System.setOut(new PrintStream(output));
+            br=new BufferedReader(new InputStreamReader(System.in));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
     /**
      * Use StringBuilder for output
