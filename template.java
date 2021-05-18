@@ -6,7 +6,7 @@ import java.util.stream.*;
 /**
  * Author  :   AV 
  * At      :   @Home 
- * Date    :   21.2.
+ * Date    :   21.5.
  * ver.    :   0.0 
  * link    :   
  * file    :   cf/
@@ -23,12 +23,15 @@ class I_AM_AV {
 
     public static void main(String[] args) {
         int TEST_CASE = 0;
-        int TOTAL_TEST_CASE = sc.nextInt();
+        int TOTAL_TEST_CASE = 1;
+
+        TOTAL_TEST_CASE = sc.nextInt();
+        
         while(TEST_CASE++ < TOTAL_TEST_CASE) {
             // int n=sc.nextInt();
             // String s = sc.next();
             // int[] a=sc.input(n);
-            // int res = code(a, n);
+            // var res = code(a, n);
             // System.out.println("Case #"+TEST_CASE+": "+res);
             // sb.append(res + "\n");
         }
@@ -39,7 +42,7 @@ class I_AM_AV {
 class I_AM_AV_Template {
     static private BufferedReader br;
     static private StringTokenizer st;
-    static public final int MOD = 1000000007; // 10^9+7
+    static public final int MOD = 1_000_000_007; // 10^9+7
 
     I_AM_AV_Template() {
         br = new BufferedReader(new InputStreamReader(System.in));
@@ -108,15 +111,18 @@ class I_AM_AV_Template {
         return a;
     }
 
-    public int sum(int[] a, int start, int end) {
-        return Arrays.stream(a, start, end).sum();
+    public int[] input(int[] a, int n) {
+        for (int i = 0; i < n; i++)
+            a[i] = this.nextInt();
+        return a;
     }
 
-    public <E> void display(E[] a, int start, int end) {
-        for (; start < end; start++) {
-            System.out.print(a[start] + " ");
+    public int[][] input(int r, int c){
+        int[][] a = new int[r][c];
+        for(int[] x : a) {
+            input(x, c);
         }
-        System.out.println();
+        return a;
     }
 
     public void displayMatrix(int[][] a) {
@@ -124,17 +130,9 @@ class I_AM_AV_Template {
             System.out.println(Arrays.toString(x));
     }
 
-    public int max(int[] arr) {
-        return Arrays.stream(arr).max().getAsInt();
-    }
-
-    public int min(int[] arr) {
-        return Arrays.stream(arr).min().getAsInt();
-    }
-
-    public <E> E max(E[] a, int n) {
-        E max = a[0];
-        return max;
+    public int gcd(int a, int b) {
+        if(b==0) return a;
+        return gcd(b, a%b);
     }
 
     public boolean isPrime(int number) {
