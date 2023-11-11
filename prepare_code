@@ -1,5 +1,18 @@
 #!/bin/bash
 
+PYTHON_INIT_CODE="init.py"
+
+function alert(){
+	figlet "Depricated peice of code"
+}
+
+alert
+if [[ $? -ne 0 ]]; then
+	echo "Depricated peice of code !!"
+fi
+echo "Use $PYTHON_INIT_CODE for further uses"
+exit
+
 templateFile="/home/$USER/AV/$USER/AV/ter/compCode/template.java"
 codeBarracks="/home/$USER/AV/$USER/AV/ter/compCode"
 uploadJava="/home/$USER/Desktop/I_AM_AV.java"

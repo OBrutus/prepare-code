@@ -4,51 +4,53 @@ import java.math.*;
 import java.util.stream.*;
 
 /**
- * Author  :   AV 
- * At      :   @Home 
- * Date    :   21.5.
- * ver.    :   0.0 
- * link    :   
- * file    :   cf/
+ * Author       :   {USERNAME}
+ * Date         :   {DATE}
+ * ver.         :   0.0
+ * link         :   {PROBLEM_LINK}
+ * dir          :   {PLATFORM}/
  */
 
-// public class I_AM_AV{
-class I_AM_AV {
-    static private I_AM_AV_Template sc = new I_AM_AV_Template();
-    static private StringBuilder sb = new StringBuilder();
+// public class OBrutusSolution {
+class OBrutusSolution {
+    private static final OBrutusSolutionTemplate sc = new OBrutusSolutionTemplate();
+    private static final StringBuilder sb = new StringBuilder();
 
     public static int code(int[] a, int n) {
         return 0;
     }
 
     public static void main(String[] args) {
-        int TEST_CASE = 0;
-        int TOTAL_TEST_CASE = 1;
-
-        TOTAL_TEST_CASE = sc.nextInt();
+        // final int TOTAL_TEST_CASES = 1;
+        final int TOTAL_TEST_CASES = sc.nextInt();
         
-        while(TEST_CASE++ < TOTAL_TEST_CASE) {
-            // int n=sc.nextInt();
+        for (int testCase = TOTAL_TEST_CASES - 1; testCase >= 0; testCase--) {
+            // Taking input
+            // int n = sc.nextInt();
             // String s = sc.next();
-            // int[] a=sc.input(n);
+            // int[] a = sc.input(n);
+
+            // Compute
             // var res = code(a, n);
-            // System.out.println("Case #"+TEST_CASE+": "+res);
+            // System.out.println("DEBUG: Case #" + (TOTAL_TEST_CASES - testCase) + ": " + res);
+
+            // Storing the result
             // sb.append(res + "\n");
         }
         System.out.print(sb);
     }
 }
 
-class I_AM_AV_Template {
-    static private BufferedReader br;
-    static private StringTokenizer st;
-    static public final int MOD = 1_000_000_007; // 10^9+7
+class OBrutusSolutionTemplate {
+    private static BufferedReader br;
+    private static StringTokenizer st;
+    public static final int MOD = 1_000_000_007; // 10^9+7
 
-    I_AM_AV_Template() {
+    OBrutusSolutionTemplate() {
         br = new BufferedReader(new InputStreamReader(System.in));
     }
 
-    I_AM_AV_Template(String input) {
+    OBrutusSolutionTemplate(String input) {
         try {
             // System.setIn(new FileInputStream(input));
             // br = new BufferedReader(new InputStreamReader(System.in));
@@ -58,7 +60,7 @@ class I_AM_AV_Template {
         }
     }
 
-    I_AM_AV_Template(String input, String output) {
+    OBrutusSolutionTemplate(String input, String output) {
         try {
             System.setIn(new FileInputStream(input));
             System.setOut(new PrintStream(output));
