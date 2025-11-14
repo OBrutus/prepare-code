@@ -1,10 +1,9 @@
 '''
-Author  :   AV 
-At      :   @Home 
-Date    :   21.5.
-ver.    :   0.0 
-link    :   
-file    :   cf/
+	Author       :   ${{USERNAME}}
+	Date         :   ${{DATE}}
+	ver.         :   ${{SUBMISSION_VERSION}}
+	link         :   ${{PROBLEM_LINK}}
+	dir          :   ${{TARGET_DIRECTORY}}
 '''
 
 # import numpy as np

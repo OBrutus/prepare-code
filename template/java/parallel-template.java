@@ -9,12 +9,11 @@ import java.util.stream.*;
  */
 
 /**
- * Author :     AV
- * At   :       @Home
- * Date :       21.2.
- * ver. :       0.0
- * link :       
- * file :       cf/
+ * Author       :   ${{USERNAME}}
+ * Date         :   ${{DATE}}
+ * ver.         :   ${{SUBMISSION_VERSION}}
+ * link         :   ${{PROBLEM_LINK}}
+ * dir          :   ${{TARGET_DIRECTORY}}
  */
 
 // public class I_AM_AV{
