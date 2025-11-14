@@ -1,28 +1,47 @@
 package session
 
 import (
+	"bufio"
 	"errors"
-	"log"
+	"fmt"
 	"os"
 	"prepare-code/src/types"
 	"strings"
+	"time"
 )
+
+var ExecutionMap = make(map[string]interface{})
 
 type Session struct {
 	Platform types.Platform
 	Language string
 	FileName string
 
-	submissionVersion int8
-	// apply weight group to aquire lock in terms of writes
+	userName          string
+	submissionVersion uint8
+	startDate         time.Time
+	targetDirectory   string
+
+	// : apply weight group to aquire lock in terms of writes
 }
 
 func NewSession(platform types.Platform, language string) (Session, error) {
 	fileName := platform.GetCodeName() + "." + language
+
+	dir, err := os.Getwd()
+	if err != nil || os.Getenv("redacted") != "" {
+		fmt.Println("Error getting current working directory:", err)
+		dir = "<unknown>"
+	}
+
 	return Session{
-		Platform: platform,
-		Language: language,
-		FileName: fileName,
+		Platform:          platform,
+		Language:          language,
+		FileName:          fileName,
+		userName:          getUserName(),
+		startDate:         time.Now(),
+		targetDirectory:   dir,
+		submissionVersion: 0,
 	}, nil
 }
 
@@ -38,22 +57,68 @@ func (s Session) GetLanguage() string {
 	return s.Language
 }
 
-func (s Session) CreateFile(fileName string) error {
+func (s Session) CreateFile() error {
 	// now I wanted to copy the contents of the template file
 	// to newly created file
-
-	templateContentBin, err := os.ReadFile("./templates/template." + s.Language)
+	templateLines, err := s.getTemplateLines()
 	if err != nil {
-		return errors.New("unable to read template file: template." + s.Language + " err: " + err.Error())
+		return errors.New("unable to get template lines: " + err.Error())
+	}
+
+	writeFile, err := os.Create(s.FileName)
+	if err != nil {
+		return errors.New("unable to create file: " + s.FileName + " err: " + err.Error())
+	}
+	defer writeFile.Close()
+
+	dataItr := 0
+	dataList := []string{
+		s.userName,
+		s.startDate.Format("2006-01-02"),
+		"0.0",
+		string(s.Platform.GetPlatformName()),
+		s.targetDirectory,
+	}
+
+	// now based upon the details let's fill one by one
+	writer := bufio.NewWriter(writeFile)
+	for i, line := range templateLines {
+		if strings.Contains(line, "%s") {
+			templateLines[i] = fmt.Sprintf(line, dataList[dataItr])
+			line = templateLines[i]
+			dataItr++
+		}
+
+		_, err := writer.WriteString(line + "\n")
+		if err != nil {
+			return errors.New("unable to write to file: " +
+				s.FileName +
+				" err: " +
+				err.Error(),
+			)
+		}
+	}
+	writer.Flush()
+
+	return nil
+}
+
+func (s Session) getTemplateLines() ([]string, error) {
+	templateFileName := fmt.Sprintf("./template/%s/template.%s", s.Language, s.Language)
+	templateContentBin, err := os.ReadFile(templateFileName)
+	if err != nil {
+		return nil, errors.New(
+			"unable to read template file: template." +
+				s.Language + " err: " + err.Error(),
+		)
 	}
 
 	if templateContentBin == nil || len(templateContentBin) == 0 {
-		return errors.New("template file is empty: template." + s.Language)
+		return nil, errors.New("template file is empty: template." + s.Language)
 	}
 
 	// now get the lines as string
 	templateLines := strings.Split(string(templateContentBin), "\n")
-	log.Println("template lines: ", templateLines)
 
-	return nil
+	return templateLines, nil
 }
