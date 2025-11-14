@@ -36,13 +36,11 @@ func main() {
 		return
 	}
 
-	// err = session.CreateFile(session.GetFileName())
-	// if err != nil {
-	// 	fmt.Println("Error while creating file: ", err)
-	// 	return
-	// }
-
-	// fmt.Println("Created file: ", session.FileName)
+	err = session.CreateFile()
+	if err != nil {
+		fmt.Println("Error while creating file: ", err)
+		return
+	}
 
 	fmt.Println("File created successfully!")
 }

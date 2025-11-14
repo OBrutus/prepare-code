@@ -4,11 +4,11 @@ import java.math.*;
 import java.util.stream.*;
 
 /**
- * Author       :   ${{USERNAME}}
- * Date         :   ${{DATE}}
- * ver.         :   ${{SUBMISSION_VERSION}}
- * link         :   ${{PROBLEM_LINK}}
- * dir          :   ${{TARGET_DIRECTORY}}
+ * Author       :   %s
+ * Date         :   %s
+ * ver.         :   %s
+ * link         :   %s
+ * dir          :   %s
  */
 
 // public class OBrutusSolution {
