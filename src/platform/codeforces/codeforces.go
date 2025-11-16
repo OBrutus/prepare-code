@@ -11,7 +11,7 @@ const urlFormat string = "https://codeforces.com/problemset/problem/%s/%s"
 const codeNameDelimiter string = "-"
 
 type CodeforcesPlatform struct {
-	name     string
+	name     types.PlatformName
 	codeName string
 }
 
@@ -40,7 +40,7 @@ func GetPlatform(url string) (types.Platform, error) {
 	}
 
 	return CodeforcesPlatform{
-		name:     "Codeforces",
+		name:     constants.PlatformCodeforces,
 		codeName: extractedCodeName, // placeholder for actual extraction logic
 	}, nil
 }

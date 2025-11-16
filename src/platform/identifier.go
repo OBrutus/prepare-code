@@ -3,6 +3,7 @@ package platform
 import (
 	"errors"
 	"prepare-code/src/platform/codeforces"
+	"prepare-code/src/platform/leetcode"
 	"prepare-code/src/types"
 	"strings"
 )
@@ -17,6 +18,8 @@ func GetPlatform(url string) (types.Platform, error) {
 
 	if strings.Contains(url, "codeforces.com") {
 		return codeforces.GetPlatform(url)
+	} else if strings.Contains(url, "leetcode.com") {
+		return leetcode.GetPlatform(url)
 	} else {
 		return nil, errors.New("unknown platform or platform not supported")
 	}
