@@ -5,6 +5,7 @@ import (
 	"errors"
 	"fmt"
 	"os"
+	"path/filepath"
 	"prepare-code/src/config"
 	"prepare-code/src/types"
 	"strings"
@@ -106,8 +107,9 @@ func (s Session) CreateFile() error {
 
 func (s Session) getTemplateLines() ([]string, error) {
 	installDir := config.GetInstallDir()
-	templateFileName := fmt.Sprintf(installDir+"template/%s/template.%s", s.Language, s.Language)
-	templateContentBin, err := os.ReadFile(templateFileName)
+	internalPath := fmt.Sprintf("/template/%s/template.%s", s.Language, s.Language)
+	absolutePathFileName := filepath.Join(installDir, internalPath)
+	templateContentBin, err := os.ReadFile(absolutePathFileName)
 	if err != nil {
 		return nil, errors.New(
 			"unable to read template file: template." +

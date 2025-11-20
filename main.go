@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"os"
+	"prepare-code/src/config"
 	"prepare-code/src/platform"
 	"prepare-code/src/session"
 )
@@ -15,6 +16,11 @@ func main() {
 	if len(os.Args) < 2 {
 		fmt.Print("Enter the URL of problem: ")
 		fmt.Scanln(&url)
+	} else if os.Args[1] == "config" {
+		configMap := config.GetConfigMap()
+		fmt.Printf("Your config map is : ")
+		fmt.Println(configMap)
+		return
 	} else {
 		url = os.Args[1]
 	}

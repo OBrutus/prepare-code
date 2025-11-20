@@ -3,12 +3,14 @@ package config
 import (
 	"fmt"
 	"os"
+	"os/user"
+	"path/filepath"
+	"prepare-code/src/constants"
 	"prepare-code/src/types"
 	"strings"
 )
 
-const yamlFileName = "sample_config.yaml"
-const OldInstallDirPath = "$HOME/.prepare-code"
+var yamlFileName = "config.yaml"
 
 var config *Config
 
@@ -17,15 +19,34 @@ type Config struct {
 	BypassPrompt bool   `yaml:"bypass_prompt"`
 }
 
+func getOldInstallDirPath() string {
+	usr, _ := user.Current()
+	return filepath.Join(usr.HomeDir, "."+constants.AppName)
+}
+
 func setConfig() error {
-	yamlFile, err := os.ReadFile(yamlFileName)
-	if err != nil {
-		return err
+	// now read and assign
+	configValue := GetConfigMap()
+
+	config = &Config{
+		InstallDir:   getOldInstallDirPath(),
+		BypassPrompt: types.GetBoolFromString(configValue["bypass_prompt"].(string)),
 	}
 
-	// now read and assign
-	yaml := string(yamlFile)
+	return nil
+}
+
+func GetConfigMap() map[string]interface{} {
 	configValue := make(map[string]interface{})
+
+	yamlFilePath := filepath.Join(getOldInstallDirPath(), yamlFileName)
+	yamlFile, err := os.ReadFile(yamlFilePath)
+	if err != nil {
+		fmt.Println("Error reading config file. Err:", err)
+		return configValue
+	}
+
+	yaml := string(yamlFile)
 	for _, line := range strings.Split(yaml, "\n") {
 		line = strings.TrimSpace(line)
 		if len(line) == 0 {
@@ -38,12 +59,7 @@ func setConfig() error {
 		configValue[key] = val
 	}
 
-	config = &Config{
-		InstallDir:   configValue["install_dir"].(string),
-		BypassPrompt: types.GetBoolFromString(configValue["bypass_prompt"].(string)),
-	}
-
-	return nil
+	return configValue
 }
 
 func GetInstallDir() string {
@@ -56,7 +72,7 @@ func GetInstallDir() string {
 		// for backward compatibility sending
 		// previous build's install dir path
 		fmt.Printf("Unable to read the config yaml file. Error: %v", err)
-		return OldInstallDirPath
+		return getOldInstallDirPath()
 	}
 
 	return config.InstallDir
