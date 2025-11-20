@@ -22,7 +22,7 @@ func Test_WithExistingConfig(t *testing.T) {
 	expectedBypass := true
 
 	if resultBypass != expectedBypass {
-		t.Errorf("[CanBypassPrompt] Expected %q, got %q", expected, result)
+		t.Errorf("[CanBypassPrompt] Expected %t, got %t", expectedBypass, resultBypass)
 	}
 
 	// Cleanup
@@ -31,11 +31,13 @@ func Test_WithExistingConfig(t *testing.T) {
 
 func Test_NoConfig(t *testing.T) {
 	// Reset global config state before test
+	config = nil
+
 	resultInstallDir := GetInstallDir()
-	expectedInstallDir := "/Users/obrutus/.prepare-code"
+	expectedInstallDir := getOldInstallDirPath()
 
 	resultBypassPrompt := CanBypassPrompt()
-	expectedBypassPrompt := true
+	expectedBypassPrompt := false // Default when config file doesn't exist
 
 	if resultInstallDir != expectedInstallDir {
 		t.Errorf("[InstallDir] "+

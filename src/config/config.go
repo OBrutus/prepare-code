@@ -79,7 +79,9 @@ func GetInstallDir() string {
 }
 
 func CanBypassPrompt() bool {
-	setConfig()
+	if config == nil {
+		setConfig()
+	}
 
 	return config.BypassPrompt
 }
