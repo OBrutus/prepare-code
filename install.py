@@ -5,68 +5,93 @@ import sys
 
 expressInstall = False
 
-def setupNix():
-    if os.path.isdir(os.path.expanduser("~/.prepare-code")):
-        print("Already existing directory!")
-        choice = 'y' if expressInstall else (input("Do you want to remove it and continue? (Y/n)").strip().lower() or 'y')
+
+def remove_dir_if_exists(path, prompt=None):
+    if os.path.isdir(os.path.expanduser(path)):
+        print(f"Already existing directory at {path}!")
+        if expressInstall or not prompt:
+            choice = 'y'
+        else:
+            choice = input(prompt).strip().lower() or 'y'
         if choice == 'y':
-            os.system("rm -rf ~/.prepare-code")
+            os.system(f"rm -rf {os.path.expanduser(path)}")
+            return True
         else:
             print("Exiting setup.")
-            return
-        setupNix()
-        return
+            return False
+    return True
 
-    # now we have new canvas
+
+def clone_and_build():
     if os.path.isdir(os.path.expanduser("/tmp/prepare-code")):
         os.system("rm -rf /tmp/prepare-code")
 
-    statusCode = os.system("cd /tmp && "
-                           # "git clone https://github.com/OBrutus/prepare-code.git")
-                           "cp -r /Users/obrutus/kode/compCode/prepare-code /tmp/prepare-code")
-    if statusCode != 0:
+    tmp_cmd = "cd /tmp && "
+    "git clone https://github.com/OBrutus/prepare-code.git"
+
+    status_code = os.system(tmp_cmd)
+
+    if status_code != 0:
         print("Error during cloning repository. "
               "Please check your internet connection and try again.")
-        return
+        return False
 
-    # post clone install the repo
-    statusCode = os.system(
-        "cd /tmp/prepare-code && chmod +x build.sh && ./build.sh"
-    )
-    if statusCode != 0:
+    status_code = os.system("cd /tmp/prepare-code "
+                            "&& chmod +x build.sh && ./build.sh")
+
+    if status_code != 0:
         print("Error during building the project. "
               "Please ensure you have Go installed and try again.")
-        return
+        return False
+    return True
 
-    # now cloned repo is in /tmp/prepare-code
+
+def add_to_path():
+    shell_config = os.path.expanduser("~/.bashrc")
+    if platform == "darwin":
+        shell_config = os.path.expanduser("~/.zshrc")
+    with open(shell_config, "a") as f:
+        f.write('\nexport PATH="$HOME/.prepare-code:$PATH"\n')
+    print(f"Added to PATH in {shell_config}. Please restart your terminal "
+          "or run 'source {shell_config}' to apply changes.")
+
+
+def setup_nix():
+    if not remove_dir_if_exists("~/.prepare-code", "Do you want to remove it "
+                                "and continue? (Y/n)"):
+        return None
+    if not clone_and_build():
+        return None
     os.system("mkdir -p ~/.prepare-code")
     os.system("mv /tmp/prepare-code/* ~/.prepare-code")
-
     print("Setup completed to clone.")
-    choice = 'y' if expressInstall else (input("Do you want to add to PATH? (Y/n)").strip().lower() or 'y')
+    if expressInstall:
+        choice = 'y'
+    else:
+        choice_prompt = "Do you want to add to PATH? (Y/n)"
+        choice = input(choice_prompt).strip().lower() or 'y'
     if choice == 'y':
-        shellConfig = os.path.expanduser("~/.bashrc")
-        if platform == "darwin":
-            shellConfig = os.path.expanduser("~/.zshrc")
-
-        with open(shellConfig, "a") as f:
-            f.write('\nexport PATH="$HOME/.prepare-code:$PATH"\n')
-
-        print(f"Added to PATH in {shellConfig}. Please restart your terminal or run 'source {shellConfig}' to apply changes.")
+        add_to_path()
+    return os.path.expanduser("~/.prepare-code")
 
 
-def main():
+def setup():
     if platform == "linux" or platform == "linux2":
         print("Setting up based upon linux platform")
-        setupNix()
+        return setup_nix()
     elif platform == "darwin":
         # OS X
         print("Setting up based upon macOS platform")
-        setupNix()
+        return setup_nix()
     elif platform == "win32":
         # Windows...
         print("Setting up based upon Windows platform")
         print("[-] Sorry! Currently not supported.")
+        return None
+
+
+def main():
+    setup()
 
 
 if __name__ == "__main__":
@@ -74,4 +99,3 @@ if __name__ == "__main__":
 
     print("This is install script")
     main()
-
