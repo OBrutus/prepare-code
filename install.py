@@ -4,6 +4,7 @@ import sys
 
 
 expressInstall = False
+ConfigFileName = "config.yml"
 
 
 def remove_dir_if_exists(path, prompt=None):
@@ -26,9 +27,7 @@ def clone_and_build():
     if os.path.isdir(os.path.expanduser("/tmp/prepare-code")):
         os.system("rm -rf /tmp/prepare-code")
 
-    tmp_cmd = "cd /tmp && "
-    "git clone https://github.com/OBrutus/prepare-code.git"
-
+    tmp_cmd = "cd /tmp && git clone https://github.com/OBrutus/prepare-code.git"
     status_code = os.system(tmp_cmd)
 
     if status_code != 0:
@@ -36,8 +35,7 @@ def clone_and_build():
               "Please check your internet connection and try again.")
         return False
 
-    status_code = os.system("cd /tmp/prepare-code "
-                            "&& chmod +x build.sh && ./build.sh")
+    status_code = os.system("cd /tmp/prepare-code && chmod +x build.sh && ./build.sh")
 
     if status_code != 0:
         print("Error during building the project. "
@@ -90,8 +88,20 @@ def setup():
         return None
 
 
+def create_config_file(install_dir: str):
+    content = "install_dir: " + install_dir + "\n"
+    content += "bypass_prompt: " + "false" + "\n"
+
+    file = open(os.path.join(install_dir, ConfigFileName), 'w')
+    file.write(content)
+
+
 def main():
-    setup()
+    install_dir = setup()
+    if install_dir is None:
+        return
+
+    create_config_file(install_dir)
 
 
 if __name__ == "__main__":
@@ -99,3 +109,4 @@ if __name__ == "__main__":
 
     print("This is install script")
     main()
+
