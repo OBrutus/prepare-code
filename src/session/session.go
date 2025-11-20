@@ -5,6 +5,7 @@ import (
 	"errors"
 	"fmt"
 	"os"
+	"prepare-code/src/config"
 	"prepare-code/src/types"
 	"strings"
 	"time"
@@ -104,7 +105,8 @@ func (s Session) CreateFile() error {
 }
 
 func (s Session) getTemplateLines() ([]string, error) {
-	templateFileName := fmt.Sprintf("./template/%s/template.%s", s.Language, s.Language)
+	installDir := config.GetInstallDir()
+	templateFileName := fmt.Sprintf(installDir+"template/%s/template.%s", s.Language, s.Language)
 	templateContentBin, err := os.ReadFile(templateFileName)
 	if err != nil {
 		return nil, errors.New(

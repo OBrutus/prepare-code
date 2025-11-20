@@ -4,7 +4,7 @@ import sys
 
 
 expressInstall = False
-ConfigFileName = "config.yml"
+ConfigFileName = "config.yaml"
 
 
 def remove_dir_if_exists(path, prompt=None):
