@@ -8,6 +8,4 @@ type Platform interface {
 
 	// code name of the file
 	GetCodeName() string
-
-	GetPlatform(string) (Platform, error)
 }

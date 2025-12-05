@@ -7,6 +7,7 @@ import (
 	"os"
 	"path/filepath"
 	"prepare-code/src/config"
+	"prepare-code/src/platform/generic_platform"
 	"prepare-code/src/types"
 	"strings"
 	"time"
@@ -45,6 +46,10 @@ func NewSession(platform types.Platform, language string) (Session, error) {
 		targetDirectory:   dir,
 		submissionVersion: 0,
 	}, nil
+}
+
+func NewGenericSession(language string) (Session, error) {
+	return NewSession(generic_platform.GetPlatform(), language)
 }
 
 func (s Session) GetFileName() string {

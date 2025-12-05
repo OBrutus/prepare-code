@@ -9,4 +9,5 @@ const (
 	PlatformAtCoder     types.PlatformName = "atcoder"
 	PlatformHackerRank  types.PlatformName = "hackerrank"
 	PlatformHackerEarth types.PlatformName = "hackerearth"
+	PlatformGeneric     types.PlatformName = "generic_platform"
 )

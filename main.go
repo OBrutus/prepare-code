@@ -21,6 +21,9 @@ func main() {
 		fmt.Printf("Your config map is : ")
 		fmt.Println(configMap)
 		return
+	} else if os.Args[1] == "raw" {
+		genericHandover()
+		return
 	} else {
 		url = os.Args[1]
 	}
@@ -61,4 +64,33 @@ func getLanguage() string {
 	}
 
 	return language
+}
+
+func genericHandover() {
+	fmt.Printf("Giving for raw template")
+	if len(os.Args) < 3 {
+		fmt.Printf("You need to choose a language explicitly for raw template")
+		return
+	}
+
+	language := os.Args[2]
+	fileName := "raw_template." + language
+	if len(os.Args) >= 4 {
+		fileName = os.Args[3]
+	}
+
+	session, err := session.NewGenericSession(language)
+	if err != nil {
+		fmt.Println("Error while creating raw session: ", err)
+		return
+	}
+
+	err = session.CreateFile()
+	if err != nil {
+		fmt.Println("Error while creating raw file: ", err)
+		return
+	}
+
+	fmt.Println("Raw file created successfully with name: ", fileName)
+	return
 }
