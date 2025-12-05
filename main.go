@@ -74,23 +74,22 @@ func genericHandover() {
 	}
 
 	language := os.Args[2]
-	fileName := "raw_template." + language
-	if len(os.Args) >= 4 {
-		fileName = os.Args[3]
-	}
-
 	session, err := session.NewGenericSession(language)
 	if err != nil {
 		fmt.Println("Error while creating raw session: ", err)
 		return
 	}
 
+	// check file name
+	if len(os.Args) >= 4 {
+		session.FileName = os.Args[3]
+	}
+
 	err = session.CreateFile()
 	if err != nil {
-		fmt.Println("Error while creating raw file: ", err)
+		fmt.Println("Error while creating raw file: ", session.FileName, "\nError: ", err)
 		return
 	}
 
-	fmt.Println("Raw file created successfully with name: ", fileName)
-	return
+	fmt.Println("Raw file created successfully with name: ", session.FileName)
 }
