@@ -57,7 +57,7 @@ func main() {
 func getLanguage() string {
 	var language string
 
-	fmt.Print("Language to use (eg: java, cpp, py etc) [Default: Java]: ")
+	fmt.Print("Language to use (eg: java, go, cpp, py etc) [Default: Java]: ")
 	fmt.Scanln(&language)
 	if len(language) == 0 {
 		language = "java"
