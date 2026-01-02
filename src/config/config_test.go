@@ -5,21 +5,11 @@ import (
 	"testing"
 )
 
-func setupCI(t *testing.T) {
-	originalCI := os.Getenv("CI")
-	os.Unsetenv("CI")
-
-	// t.Cleanup automatically runs after the test finishes
-	t.Cleanup(func() {
-		if originalCI != "" {
-			os.Setenv("CI", originalCI)
-		}
-	})
+func isCiEnv() bool {
+	return os.Getenv("CI") != ""
 }
 
 func Test_WithExistingConfig(t *testing.T) {
-	setupCI()
-
 	// Reset global config state before test
 	config = &Config{
 		InstallDir:   "/custom/install/path",
@@ -45,7 +35,9 @@ func Test_WithExistingConfig(t *testing.T) {
 }
 
 func Test_NoConfig(t *testing.T) {
-	setupCI(t)
+	if isCiEnv() {
+		return
+	}
 
 	// Reset global config state before test
 	config = nil
