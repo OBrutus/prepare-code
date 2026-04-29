@@ -6,6 +6,7 @@ import (
 	"math"
 	"os"
 	"strconv"
+	"strings"
 )
 
 /**
@@ -81,7 +82,7 @@ func nextFloat64() float64 {
 
 func nextLine() string {
 	line, _ := reader.ReadString('\n')
-	return line
+    return strings.TrimRight(line, "\r\n")
 }
 
 func inputArray(n int) []int {
