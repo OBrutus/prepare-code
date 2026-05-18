@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 	"prepare-code/src/config"
+	"prepare-code/src/editor"
 	"prepare-code/src/platform"
 	"prepare-code/src/session"
 )
@@ -51,7 +52,12 @@ func main() {
 		return
 	}
 
-	fmt.Println("File created successfully!")
+	fmt.Println("[DEBUG] File created successfully!")
+
+	err = editor.TryOpenInEditor(session.FileName)
+	if err != nil {
+		fmt.Println("Err: ", err)
+	}
 }
 
 func getLanguage() string {

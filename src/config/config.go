@@ -15,8 +15,10 @@ var yamlFileName = "config.yaml"
 var config *Config
 
 type Config struct {
-	InstallDir   string `yaml:"install_dir"`
-	BypassPrompt bool   `yaml:"bypass_prompt"`
+	installDir      string `yaml:"install_dir"`
+	bypassPrompt    bool   `yaml:"bypass_prompt"`
+	prefferedEditor string `yaml:"preferred_editor"`
+	openInEditor    bool   `yaml:"open_in_editor"`
 }
 
 func getOldInstallDirPath() string {
@@ -29,8 +31,10 @@ func setConfig() error {
 	configValue := GetConfigMap()
 
 	config = &Config{
-		InstallDir:   getOldInstallDirPath(),
-		BypassPrompt: types.GetBoolFromString(configValue["bypass_prompt"].(string)),
+		installDir:      getOldInstallDirPath(),
+		bypassPrompt:    types.GetBoolFromString(configValue["bypass_prompt"].(string)),
+		prefferedEditor: configValue["preferred_editor"].(string),
+		openInEditor:    types.GetBoolFromString(configValue["open_in_editor"].(string)),
 	}
 
 	return nil
@@ -64,7 +68,7 @@ func GetConfigMap() map[string]interface{} {
 
 func GetInstallDir() string {
 	if config != nil {
-		return config.InstallDir
+		return config.installDir
 	}
 
 	err := setConfig()
@@ -75,7 +79,7 @@ func GetInstallDir() string {
 		return getOldInstallDirPath()
 	}
 
-	return config.InstallDir
+	return config.installDir
 }
 
 func CanBypassPrompt() bool {
@@ -83,5 +87,9 @@ func CanBypassPrompt() bool {
 		setConfig()
 	}
 
-	return config.BypassPrompt
+	return config.bypassPrompt
+}
+
+func GetEditor() (string, bool) {
+	return config.prefferedEditor, false
 }

@@ -1,3 +1,4 @@
 install_dir: /Users/obrutus/.prepare-code
 bypass_prompt: true
 preferred_editor: nvim
+open_in_editor: false
