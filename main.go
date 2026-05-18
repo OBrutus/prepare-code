@@ -32,7 +32,7 @@ func main() {
 	// which platform it is
 	platform, err := platform.GetPlatform(url)
 	if err != nil {
-		fmt.Println("Error while getting platform: ", err)
+		fmt.Println("[-] Error while getting platform: ", err)
 		return
 	}
 
@@ -42,21 +42,21 @@ func main() {
 	language := getLanguage()
 	session, err := session.NewSession(platform, language)
 	if err != nil {
-		fmt.Println("Error while creating session: ", err)
+		fmt.Println("[-] Error while creating session: ", err)
 		return
 	}
 
 	err = session.CreateFile()
 	if err != nil {
-		fmt.Println("Error while creating file: ", err)
+		fmt.Println("[-] Error while creating file: ", err)
 		return
 	}
 
-	fmt.Println("File created successfully!")
+	fmt.Println("[+] File created successfully!")
 
 	err = editor.TryOpenInEditor(session.FileName)
 	if err != nil {
-		fmt.Println("Err: ", err)
+		fmt.Println("[-] Err: ", err)
 	}
 }
 
