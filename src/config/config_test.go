@@ -12,8 +12,8 @@ func isCiEnv() bool {
 func Test_WithExistingConfig(t *testing.T) {
 	// Reset global config state before test
 	config = &Config{
-		InstallDir:   "/custom/install/path",
-		BypassPrompt: true,
+		installDir:   "/custom/install/path",
+		bypassPrompt: true,
 	}
 
 	result := GetInstallDir()
