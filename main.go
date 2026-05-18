@@ -52,7 +52,7 @@ func main() {
 		return
 	}
 
-	fmt.Println("[DEBUG] File created successfully!")
+	fmt.Println("File created successfully!")
 
 	err = editor.TryOpenInEditor(session.FileName)
 	if err != nil {

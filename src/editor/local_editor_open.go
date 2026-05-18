@@ -14,13 +14,11 @@ var (
 
 func TryOpenInEditor(fileName string) error {
 	editor, toOpen := config.GetEditor()
-	fmt.Println(editor, " ", toOpen)
-	toOpen = true
 	if !toOpen {
 		return ErrOpenNotPreffered
 	}
 
-	fmt.Println("Opening the file:", fileName, " in ", editor)
+	fmt.Println("Opening the file:", fileName, "in", editor)
 	cmd := exec.Command(editor, fileName)
 	cmd.Stdin = os.Stdin
 	cmd.Stdout = os.Stdout
