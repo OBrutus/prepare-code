@@ -30,7 +30,7 @@ func main() {
 	}
 
 	// which platform it is
-	platform, err := platform.GetPlatform(url)
+	platform, err := platform.ResolvePlatform(url)
 	if err != nil {
 		fmt.Println("[-] Error while getting platform: ", err)
 		return

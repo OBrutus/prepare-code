@@ -16,7 +16,7 @@ import (
 var ExecutionMap = make(map[string]interface{})
 
 type Session struct {
-	Platform types.Platform
+	Platform types.Instance
 	Language string
 	FileName string
 
@@ -28,7 +28,7 @@ type Session struct {
 	// : apply weight group to aquire lock in terms of writes
 }
 
-func NewSession(platform types.Platform, language string) (Session, error) {
+func NewSession(platform types.Instance, language string) (Session, error) {
 	fileName := platform.GetCodeName() + "." + language
 
 	dir, err := os.Getwd()
@@ -56,7 +56,7 @@ func (s Session) GetFileName() string {
 	return s.FileName
 }
 
-func (s Session) GetPlatform() types.Platform {
+func (s Session) GetPlatform() types.Instance {
 	return s.Platform
 }
 

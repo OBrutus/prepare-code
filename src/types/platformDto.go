@@ -2,7 +2,7 @@ package types
 
 type PlatformName string
 
-type Platform interface {
+type Instance interface {
 	// platform name
 	GetPlatformName() PlatformName
 

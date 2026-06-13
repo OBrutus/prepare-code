@@ -5,23 +5,23 @@ import (
 	"prepare-code/src/types"
 )
 
-type GenericPlatform struct {
+type GenericInstance struct {
 	name     types.PlatformName
 	codeName string
 }
 
 // GetCodeName implements types.Platform.
-func (g GenericPlatform) GetCodeName() string {
+func (g GenericInstance) GetCodeName() string {
 	return g.codeName
 }
 
 // GetPlatformName implements types.Platform.
-func (g GenericPlatform) GetPlatformName() types.PlatformName {
+func (g GenericInstance) GetPlatformName() types.PlatformName {
 	return constants.PlatformGeneric
 }
 
-func GetPlatform() types.Platform {
-	return GenericPlatform{
+func GetPlatform() types.Instance {
+	return GenericInstance{
 		name:     constants.PlatformGeneric,
 		codeName: "generic",
 	}
