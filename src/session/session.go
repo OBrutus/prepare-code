@@ -9,6 +9,7 @@ import (
 	"prepare-code/src/config"
 	"prepare-code/src/platform/generic_platform"
 	"prepare-code/src/types"
+	"prepare-code/src/uuid"
 	"strings"
 	"time"
 )
@@ -16,6 +17,7 @@ import (
 var ExecutionMap = make(map[string]interface{})
 
 type Session struct {
+	Id       string
 	Platform types.Instance
 	Language string
 	FileName string
@@ -38,6 +40,7 @@ func NewSession(platform types.Instance, language string) (Session, error) {
 	}
 
 	return Session{
+		Id:                uuid.New(),
 		Platform:          platform,
 		Language:          language,
 		FileName:          fileName,
