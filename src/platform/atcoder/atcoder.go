@@ -13,31 +13,27 @@ const urlFormat string = "https://atcoder.jp/contests/abc461/tasks/abc461_a"
 
 const codeNameDelimiter string = "-"
 
-type AtCoderPlatform struct {
+type AtCoderInstance struct {
 	name     types.PlatformName
 	codeName string
 }
 
-func (ac AtCoderPlatform) GetPlatformName() types.PlatformName {
+func (ac AtCoderInstance) GetPlatformName() types.PlatformName {
 	return constants.PlatformAtCoder
 }
 
-func (ac AtCoderPlatform) GetCodeName() string {
+func (ac AtCoderInstance) GetCodeName() string {
 	return ac.codeName
 }
 
-func (ac AtCoderPlatform) GetPlatform(url string) (types.Platform, error) {
-	return GetPlatform(url)
-}
-
 // This is the main method
-func GetPlatform(url string) (types.Platform, error) {
+func GetInstance(url string) (types.Instance, error) {
 	extractedCodeName, err := extractCodeName(url)
 	if err != nil {
 		return nil, err
 	}
 
-	return AtCoderPlatform{
+	return AtCoderInstance{
 		name:     constants.PlatformCodeforces,
 		codeName: extractedCodeName, // placeholder for actual extraction logic
 	}, nil

@@ -12,17 +12,17 @@ import (
 /*
 Take the url and understand what platform it is
 */
-func GetPlatform(url string) (types.Platform, error) {
+func ResolvePlatform(url string) (types.Instance, error) {
 	if len(url) == 0 {
 		return nil, errors.New("empty url")
 	}
 
 	if strings.Contains(url, "codeforces.com") {
-		return codeforces.GetPlatform(url)
+		return codeforces.GetInstance(url)
 	} else if strings.Contains(url, "leetcode.com") {
-		return leetcode.GetPlatform(url)
+		return leetcode.GetInstance(url)
 	} else if strings.Contains(url, "atcoder.jp") {
-		return atcoder.GetPlatform(url)
+		return atcoder.GetInstance(url)
 	} else {
 		return nil, errors.New("unknown platform or platform not supported")
 	}

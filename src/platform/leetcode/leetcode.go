@@ -20,7 +20,7 @@ Using below API to get problem details:
 	https://alfa-leetcode-api.onrender.com/
 */
 
-type LeetcodePlatform struct {
+type LeetcodeInstance struct {
 	name     types.PlatformName
 	codeName string
 }
@@ -30,20 +30,16 @@ const UrlCodeDelimiter string = "-"
 const CodeNameDelimiter string = "."
 const ApiUrl string = "https://alfa-leetcode-api.onrender.com/select?titleSlug=%s"
 
-func (lc LeetcodePlatform) GetPlatformName() types.PlatformName {
+func (lc LeetcodeInstance) GetPlatformName() types.PlatformName {
 	return constants.PlatformLeetCode
 }
 
-func (lc LeetcodePlatform) GetCodeName() string {
+func (lc LeetcodeInstance) GetCodeName() string {
 	return lc.codeName
 }
 
-func (lc LeetcodePlatform) GetPlatform(url string) (types.Platform, error) {
-	return GetPlatform(url)
-}
-
 // This is the main method
-func GetPlatform(url string) (types.Platform, error) {
+func GetInstance(url string) (types.Instance, error) {
 	// extract code name from url
 	// example: https://leetcode.com/problems/longest-increasing-subsequence/description
 
@@ -53,7 +49,7 @@ func GetPlatform(url string) (types.Platform, error) {
 		return nil, err
 	}
 
-	return LeetcodePlatform{
+	return LeetcodeInstance{
 		name:     constants.PlatformLeetCode,
 		codeName: extractedCodeName, // placeholder for actual extraction logic
 	}, nil

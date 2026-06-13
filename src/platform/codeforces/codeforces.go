@@ -10,25 +10,21 @@ import (
 const urlFormat string = "https://codeforces.com/problemset/problem/%s/%s"
 const codeNameDelimiter string = "-"
 
-type CodeforcesPlatform struct {
+type CodeforcesInstance struct {
 	name     types.PlatformName
 	codeName string
 }
 
-func (cf CodeforcesPlatform) GetPlatformName() types.PlatformName {
+func (cf CodeforcesInstance) GetPlatformName() types.PlatformName {
 	return constants.PlatformCodeforces
 }
 
-func (cf CodeforcesPlatform) GetCodeName() string {
+func (cf CodeforcesInstance) GetCodeName() string {
 	return cf.codeName
 }
 
-func (cf CodeforcesPlatform) GetPlatform(url string) (types.Platform, error) {
-	return GetPlatform(url)
-}
-
 // This is the main method
-func GetPlatform(url string) (types.Platform, error) {
+func GetInstance(url string) (types.Instance, error) {
 	// extract code name from url
 	// example: https://codeforces.com/problemset/problem/1234/A
 
@@ -39,7 +35,7 @@ func GetPlatform(url string) (types.Platform, error) {
 		return nil, err
 	}
 
-	return CodeforcesPlatform{
+	return CodeforcesInstance{
 		name:     constants.PlatformCodeforces,
 		codeName: extractedCodeName, // placeholder for actual extraction logic
 	}, nil
