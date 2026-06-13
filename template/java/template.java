@@ -21,21 +21,23 @@ class OBrutusSolution {
     }
 
     public static void main(String[] args) {
+        Thread.currentThread().setPriority(Thread.MAX_PRIORITY);
+
         // final int TOTAL_TEST_CASES = 1;
         final int TOTAL_TEST_CASES = sc.nextInt();
-        
-        for (int testCase = TOTAL_TEST_CASES - 1; testCase >= 0; testCase--) {
+
+        for (int testCase = 1; testCase <= TOTAL_TEST_CASES; testCase++) {
             // Taking input
             // int n = sc.nextInt();
             // String s = sc.next();
             // int[] a = sc.input(n);
 
             // Compute
-            // var res = code(a, n);
-            // System.out.println("DEBUG: Case #" + (TOTAL_TEST_CASES - testCase) + ": " + res);
+            var res = code(a, n);
+            // System.out.println("DEBUG: Case #" + testCase + ": " + res);
 
             // Storing the result
-            // sb.append(res + "\n");
+            sb.append(res + "\n");
         }
         System.out.print(sb);
     }
