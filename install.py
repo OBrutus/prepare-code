@@ -55,7 +55,7 @@ def add_to_path():
     with open(shell_config, "a") as f:
         f.write('\nexport PATH=' + TARGET_INSTALL_DIR + '":$PATH"\n')
     print(f"Added to PATH in {shell_config}. Please restart your terminal "
-          "or run 'source {shell_config}' to apply changes.")
+          f"or run 'source {shell_config}' to apply changes.")
 
 
 def setup_nix():
@@ -66,8 +66,7 @@ def setup_nix():
     if not clone_and_build():
         return None
 
-    os.system("mkdir -p "+TARGET_INSTALL_DIR)
-    os.system("mv /tmp/prepare-code/* " + TARGET_INSTALL_DIR)
+    os.system("mv /tmp/prepare-code " + TARGET_INSTALL_DIR)
     print("Setup completed to clone.")
     if expressInstall:
         choice = 'y'
