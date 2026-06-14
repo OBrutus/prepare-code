@@ -1,4 +1,4 @@
-package session
+package system
 
 import (
 	"log"
@@ -6,7 +6,7 @@ import (
 	"os/user"
 )
 
-func getUserName() string {
+func GetUserName() string {
 	curUser, err := user.Current()
 	if err != nil || curUser == nil {
 		log.Println("Error getting current user:", err)

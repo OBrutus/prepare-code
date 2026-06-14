@@ -7,6 +7,7 @@ import (
 	"prepare-code/src/editor"
 	"prepare-code/src/platform"
 	"prepare-code/src/session"
+	"prepare-code/src/system"
 )
 
 func main() {
@@ -26,7 +27,7 @@ func main() {
 		genericHandover()
 		return
 	} else if os.Args[1] == "update" {
-		update()
+		system.Update()
 	} else {
 		url = os.Args[1]
 	}

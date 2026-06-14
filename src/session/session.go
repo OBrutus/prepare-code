@@ -8,6 +8,7 @@ import (
 	"path/filepath"
 	"prepare-code/src/config"
 	"prepare-code/src/platform/generic_platform"
+	"prepare-code/src/system"
 	"prepare-code/src/types"
 	"prepare-code/src/uuid"
 	"strings"
@@ -44,7 +45,7 @@ func NewSession(platform types.Instance, language string) (Session, error) {
 		Platform:          platform,
 		Language:          language,
 		FileName:          fileName,
-		userName:          getUserName(),
+		userName:          system.GetUserName(),
 		startDate:         time.Now(),
 		targetDirectory:   dir,
 		submissionVersion: 0,
