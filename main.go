@@ -25,6 +25,8 @@ func main() {
 	} else if os.Args[1] == "raw" {
 		genericHandover()
 		return
+	} else if os.Args[1] == "update" {
+		update()
 	} else {
 		url = os.Args[1]
 	}
