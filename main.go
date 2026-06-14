@@ -14,7 +14,6 @@ func main() {
 	// start of the CLI application
 	// accept URL
 	var url string
-
 	if len(os.Args) < 2 {
 		fmt.Print("Enter the URL of problem: ")
 		fmt.Scanln(&url)
@@ -27,7 +26,16 @@ func main() {
 		genericHandover()
 		return
 	} else if os.Args[1] == "update" {
-		system.Update()
+		fmt.Println("____________________")
+		fmt.Println("Attempting to update")
+		fmt.Println("^^^^^^^^^^^^^^^^^^^^")
+		o, err := system.Update()
+		if err != nil {
+			fmt.Println("[-] Update Failed with error", err)
+		} else {
+			fmt.Println("[+] Update Successfull", o)
+		}
+		return
 	} else {
 		url = os.Args[1]
 	}

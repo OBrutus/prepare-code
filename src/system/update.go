@@ -12,7 +12,7 @@ import (
 // TODO: Add auto update logic
 
 var (
-	ErrNonGitUpdateNotSupported error
+	ErrNonGitUpdateNotSupported = errors.New("ErrNonGitUpdateNotSupported")
 )
 
 const DefaultMessage = "Update Not supported, kindly reinstall!"
