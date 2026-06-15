@@ -91,5 +91,5 @@ func CanBypassPrompt() bool {
 }
 
 func GetEditor() (string, bool) {
-	return config.prefferedEditor, false
+	return config.prefferedEditor, config.openInEditor
 }
