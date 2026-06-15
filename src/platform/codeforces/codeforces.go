@@ -101,7 +101,7 @@ func extractCodeNameProblemSet(url string) (string, error) {
 	contestRemovedString := prefixRemovedString[firstSlashIndex+1:]
 
 	// here the assumption is single character [from A - Z]
-	questionCode := contestRemovedString[0]
+	questionCode := strings.ToUpper(string(contestRemovedString[0]))
 
-	return contestNumber + codeNameDelimiter + string(questionCode), nil
+	return contestNumber + codeNameDelimiter + questionCode, nil
 }

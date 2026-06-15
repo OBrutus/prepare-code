@@ -1,3 +1,7 @@
+# specific dirs
 .DS_Store
 .vscode
+
+# binaries
 prepare-code
+pc

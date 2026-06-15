@@ -8,6 +8,7 @@ import (
 	"prepare-code/src/platform"
 	"prepare-code/src/session"
 	"prepare-code/src/system"
+	"prepare-code/src/tui"
 )
 
 func main() {
@@ -18,9 +19,7 @@ func main() {
 		fmt.Print("Enter the URL of problem: ")
 		fmt.Scanln(&url)
 	} else if os.Args[1] == "config" {
-		configMap := config.GetConfigMap()
-		fmt.Printf("Your config map is : ")
-		fmt.Println(configMap)
+		tui.PrintMap(config.GetConfigMap())
 		return
 	} else if os.Args[1] == "raw" {
 		genericHandover()
